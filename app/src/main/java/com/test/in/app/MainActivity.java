@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bp.purchase(MainActivity.this, "android.test.purchased");
+                //bp.purchase(MainActivity.this, "android.test.purchased");
+                bp.purchase(MainActivity.this , "com.inappp.test.techdrive");
             }
         });
     }
