@@ -6,8 +6,8 @@ android {
         applicationId "com.test.in.app"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 7
-        versionName "5.7"
+        versionCode 9
+        versionName "5.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -27,4 +27,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.anjlab.android.iab.v3:library:1.0.44'
+    implementation 'com.google.android.gms:play-services-ads:11.4.0'
 }
