@@ -1,19 +1,20 @@
 package com.test.in.app;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
+
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
@@ -25,9 +26,11 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
 
     BillingProcessor bp;
     public AdView adView;
-    public boolean adStatus = true;
     public AppTest appTest;
     public TextView textView;
+    public  final String parched = "android.test.purchased";
+    public boolean ad = false;
+    public Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,24 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         adView = (AdView) findViewById(R.id.adView1);
         appTest = new AppTest(getApplicationContext());
         textView = (TextView) findViewById(R.id.test);
+        button = (Button) findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this , Main2Activity.class);
+                startActivity(intent);
+            }
+        });
 
         bp = new BillingProcessor(this, "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvRM/LNQJCDM8BfwrcAPETpVwOqx4Kyj/vUywbCMP7neBglC75aP029MA7H9q5mh5SPH7mP1s5cuyvwnbwSCQubzxnniEt64GlLvYazyzh0loEQQ4wEXPmZUkOQaaanw0KoV3CP9ulNn+L53UkH3jowKBU17XMFLKZ86trCJSnUMbf806f1zUz+I+I3uGKZFv4k0K0xEE+2mTuaUyGMHpoi64LMPFe+rieQH/dsv/6Y7uXnUPu", this);
+
+        if (bp.isPurchased(parched)){
+            adDiseable();
+        }
+        else {
+            showBannerAd();
+        }
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +67,8 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
                 //bp.purchase(MainActivity.this , "com.inappp.test.techdrive");
             }
         });
-        checkAdStatus();
-    }
 
+    }
 
     public void showBannerAd(){
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -86,11 +104,11 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
 
             }
         });
-
     }
 
-
-
+    public void adDiseable(){
+        adView.setVisibility(View.GONE);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -133,9 +151,11 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     @Override
     public void onProductPurchased(@NonNull String productId, @Nullable TransactionDetails details) {
         Log.d("productId" , ""+productId);
-        textView.setText(productId);
-        appTest.saveApi("1");
-        checkAdStatus();
+        if (productId.contains(parched)){
+            adDiseable();
+        }else {
+        }
+
     }
 
     @Override
@@ -151,14 +171,5 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     @Override
     public void onBillingInitialized() {
 
-    }
-    public void checkAdStatus(){
-       String apikey =  appTest.getApiPreferance();
-       if (apikey.contains("1")){
-
-       }
-       else {
-           showBannerAd();
-       }
     }
 }
