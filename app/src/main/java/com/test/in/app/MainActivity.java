@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
 
     BillingProcessor bp;
     public AdView adView;
-    public AppTest appTest;
+
     public TextView textView;
     public  final String parched = "android.test.purchased";
     public boolean ad = false;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         adView = (AdView) findViewById(R.id.adView1);
-        appTest = new AppTest(getApplicationContext());
+
         textView = (TextView) findViewById(R.id.test);
         button = (Button) findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
