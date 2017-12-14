@@ -156,6 +156,12 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         }else {
         }
 
+        Log.d("purchaseInfo" , ""+details.purchaseInfo);
+        Log.d("productId" , ""+details.productId);
+        Log.d("orderId" , ""+details.orderId);
+        Log.d("purchaseToken" , ""+details.purchaseToken);
+        Log.d("purchaseTime" , ""+details.purchaseTime);
+
     }
 
     @Override
